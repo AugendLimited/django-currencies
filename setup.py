@@ -29,8 +29,8 @@ if 'sdist' in sys.argv or 'develop' in sys.argv:
         from django.core import management
         management.call_command('compilemessages', stdout=sys.stderr, verbosity=1)
     except ImportError:
-        if 'sdist' in sys.argv:
-            raise
+        # Django not available during build, skip message compilation
+        pass
     finally:
         os.chdir('..')
 
@@ -48,7 +48,7 @@ def find_version(*parts):
     raise RuntimeError("Unable to find version string.")
 
 setup(
-    name='django-currencies',
+    name='django-currencies-fork',
     version=find_version('currencies', '__init__.py'),
     license='BSD License',
 
@@ -59,14 +59,12 @@ setup(
     ],
 
     description='Adds support for multiple currencies as a Django application.',
-    long_description_content_type='text/x-rst',
-    long_description=read('README.rst'),
+    long_description='django-currencies allows you to define different currencies, and includes template tags/filters to allow easy conversion between them.',
 
-    author='Panos Laganakos',
-    author_email='panos.laganakos@gmail.com',
+    author='Konrad Beck',
+    author_email='konrad.beck@merchantcapital.co.za',
 
-    url='https://github.com/panosl/django-currencies',
-    download_url='https://github.com/panosl/django-currencies/zipball/master',
+    url='https://github.com/AugendLimited/django-currencies',
 
     packages=find_packages(exclude=('example*', '*.tests*')),
     include_package_data=True,
